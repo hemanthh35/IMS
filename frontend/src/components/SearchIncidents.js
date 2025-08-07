@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Loader2, AlertCircle, Clock, AlertTriangle } from 'lucide-react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config';
 
 const SearchIncidents = () => {
   const [query, setQuery] = useState('');
@@ -17,7 +18,7 @@ const SearchIncidents = () => {
     setResults([]);
 
     try {
-      const response = await axios.post('/search', {
+      const response = await axios.post(API_ENDPOINTS.SEARCH, {
         log_text: query
       });
       setResults(response.data.similar_incidents);

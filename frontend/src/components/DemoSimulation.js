@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Play, CheckCircle, Loader2, AlertCircle, FileText } from 'lucide-react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config';
 
 const SCENARIOS = [
   {
@@ -52,9 +53,9 @@ const DemoSimulation = () => {
     const parsed = parseScenarioLog(scenario.log);
     try {
       // Submit to /predict
-      const predictionRes = await axios.post('/predict', parsed);
+      const predictionRes = await axios.post(API_ENDPOINTS.PREDICT, parsed);
       // Submit to /summarize
-      const summaryRes = await axios.post('/summarize', { text: parsed.log_text });
+      const summaryRes = await axios.post(API_ENDPOINTS.SUMMARIZE, { text: parsed.log_text });
       setResult({
         prediction: predictionRes.data.predicted_root_cause,
         summary: summaryRes.data.summary,

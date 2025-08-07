@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Loader2, CheckCircle, AlertCircle, FileText, Edit3 } from 'lucide-react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config';
 
 const IncidentForm = () => {
   const [formData, setFormData] = useState({
@@ -115,10 +116,10 @@ const IncidentForm = () => {
 
     try {
       // Get prediction
-      const predictionResponse = await axios.post('/predict', formData);
+      const predictionResponse = await axios.post(API_ENDPOINTS.PREDICT, formData);
       
       // Get summary
-      const summaryResponse = await axios.post('/summarize', {
+      const summaryResponse = await axios.post(API_ENDPOINTS.SUMMARIZE, {
         text: formData.log_text
       });
 

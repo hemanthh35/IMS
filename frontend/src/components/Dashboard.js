@@ -16,6 +16,7 @@ import {
   Shield
 } from 'lucide-react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LineChart, Line, Defs, LinearGradient, Stop
 } from 'recharts';
@@ -86,7 +87,7 @@ const Dashboard = ({ onNavigate }) => {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get('/history');
+      const response = await axios.get(API_ENDPOINTS.HISTORY);
       const incidents = response.data;
       setIncidents(incidents);
       const stats = {

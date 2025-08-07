@@ -23,9 +23,11 @@ services:
     env: static
     buildCommand: |
       cd frontend
-      npm install
+      npm ci --only=production
       npm run build
     staticPublishPath: ./frontend/build
     envVars:
       - key: REACT_APP_API_URL
-        value: https://ai-incident-management-backend.onrender.com 
+        value: https://ai-incident-management-backend.onrender.com
+      - key: CI
+        value: false 

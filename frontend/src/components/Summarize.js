@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileText, Loader2, CheckCircle, AlertCircle, Send } from 'lucide-react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config';
 
 const Summarize = () => {
   const [text, setText] = useState('');
@@ -17,7 +18,7 @@ const Summarize = () => {
     setSummary('');
 
     try {
-      const response = await axios.post('/summarize', {
+      const response = await axios.post(API_ENDPOINTS.SUMMARIZE, {
         text: text
       });
       setSummary(response.data.summary);

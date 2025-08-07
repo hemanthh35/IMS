@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { History, Loader2, AlertCircle, Clock, AlertTriangle, Filter } from 'lucide-react';
 import axios from 'axios';
+import { API_ENDPOINTS } from '../config';
 
 const IncidentHistory = () => {
   const [incidents, setIncidents] = useState([]);
@@ -15,7 +16,7 @@ const IncidentHistory = () => {
 
   const fetchIncidents = async () => {
     try {
-      const response = await axios.get('/history');
+      const response = await axios.get(API_ENDPOINTS.HISTORY);
       setIncidents(response.data);
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to load incident history.');
