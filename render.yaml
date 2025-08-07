@@ -21,7 +21,6 @@ services:
   - type: web
     name: ai-incident-management-frontend
     env: static
-    plan: free
     buildCommand: |
       cd frontend
       npm install
