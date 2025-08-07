@@ -1,0 +1,32 @@
+services:
+  # Backend API Service
+  - type: web
+    name: ai-incident-management-backend
+    env: python
+    plan: free
+    buildCommand: |
+      cd backend
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend
+      uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.16
+      - key: PORT
+        value: 8000
+    healthCheckPath: /history
+
+  # Frontend Static Site
+  - type: web
+    name: ai-incident-management-frontend
+    env: static
+    plan: free
+    buildCommand: |
+      cd frontend
+      npm install
+      npm run build
+    staticPublishPath: ./frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://ai-incident-management-backend.onrender.com 

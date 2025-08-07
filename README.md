@@ -61,7 +61,7 @@ cd ai-incident-management-system
 ### 2. Backend Setup
 ```bash
 cd backend
-pip install fastapi uvicorn pydantic joblib pandas scikit-learn transformers torch sentence-transformers faiss-cpu
+pip install -r requirements.txt
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -76,6 +76,43 @@ npm start
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **API Documentation**: http://localhost:8000/docs
+
+## ☁️ Deploy to Render
+
+### Option 1: Deploy with render.yaml (Recommended)
+1. Fork this repository to your GitHub account
+2. Go to [Render Dashboard](https://dashboard.render.com/)
+3. Click "New +" and select "Blueprint"
+4. Connect your GitHub repository
+5. Render will automatically detect the `render.yaml` file and deploy both services
+
+### Option 2: Manual Deployment
+
+#### Deploy Backend
+1. Go to [Render Dashboard](https://dashboard.render.com/)
+2. Click "New +" and select "Web Service"
+3. Connect your GitHub repository
+4. Configure the service:
+   - **Name**: `ai-incident-management-backend`
+   - **Environment**: `Python`
+   - **Build Command**: `cd backend && pip install -r requirements.txt`
+   - **Start Command**: `cd backend && uvicorn main:app --host 0.0.0.0 --port $PORT`
+   - **Plan**: Free
+
+#### Deploy Frontend
+1. Go to [Render Dashboard](https://dashboard.render.com/)
+2. Click "New +" and select "Static Site"
+3. Connect your GitHub repository
+4. Configure the service:
+   - **Name**: `ai-incident-management-frontend`
+   - **Build Command**: `cd frontend && npm install && npm run build`
+   - **Publish Directory**: `frontend/build`
+   - **Environment Variable**: `REACT_APP_API_URL` = `https://your-backend-url.onrender.com`
+
+### Environment Variables
+Set these in your Render dashboard:
+- `PORT`: 8000 (for backend)
+- `REACT_APP_API_URL`: Your backend URL (for frontend)
 
 ## 🔌 API Endpoints
 

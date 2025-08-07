@@ -16,10 +16,14 @@ model = joblib.load(model_path)
 # === FastAPI App ===
 app = FastAPI()
 
-# === CORS (Allow frontend on localhost:3000) ===
+# === CORS (Allow frontend on localhost:3000 and Render) ===
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://ai-incident-management-frontend.onrender.com",
+        "https://ims-frontend.onrender.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -56,6 +60,11 @@ def log_incident_to_csv(data: IncidentInput, prediction: str):
         writer.writerow(row)
 
 # === API Routes ===
+
+# 🏥 Health Check
+@app.get("/")
+def health_check():
+    return {"status": "healthy", "message": "AI Incident Management System API is running"}
 
 # 🔍 Summarization Endpoint
 @app.post("/summarize")
